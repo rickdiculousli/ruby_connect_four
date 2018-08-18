@@ -55,6 +55,8 @@ class ConnectFour
   end
 
   def game_end(result)
+    system 'clr' or system 'clear'
+    display_board
     if result == 2
       puts "DRAW GAME!"
     else
@@ -76,6 +78,7 @@ class ConnectFour
     puts "Press any key to start a new game, press CTRL+C to quit"
     input = STDIN.getch
     exit(1) if input == "\u0003"
+    play_game
   end
 
   def play_game
@@ -87,7 +90,11 @@ class ConnectFour
       puts "#{player}, it's your turn! Input a valid spot"
       input = STDIN.getch
       exit(1) if input == "\u0003"
-      input = input.to_i
+      if(input.to_i.between?(1,7))
+        input = input.to_i - 1
+      else
+        input = -1
+      end
       play_round(input) # switches the PLAYER!
       result = check_end
       break unless result == 0
@@ -96,5 +103,23 @@ class ConnectFour
   end
 
   def display_board #TODO
+    string = ''
+    (0..5).to_a.reverse.each do |y|
+      string += "#{y}|"
+      (0..6).each do |x|
+        if @board[x][y].nil?
+          string += " - "
+        elsif @board[x][y]
+          string += " \u25CF "
+        else
+          string += " \u25CB "
+        end
+        string += "|"
+      end
+      string += "\n"
+    end
+    string +="*  1   2   3   4   5   6   7"
+
+    puts string
   end
 end

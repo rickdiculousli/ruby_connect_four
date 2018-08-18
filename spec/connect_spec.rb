@@ -128,20 +128,4 @@ describe ConnectFour do
       end
     end
   end
-
-  describe '#game_end' do
-    it 'starts new game' do 
-      expect(subject).to receive(:new_game)
-      subject.game_end
-    end
-  end
-
-  describe '#new_game' do 
-    it 'reset board' do 
-      subject.board = [[],[],[true,false,true,true],[true, false, true],[false, true],[true],[]]
-      subject.new_game
-      expect(subject.board).to eql([[],[],[],[],[],[],[]])
-    end
-  end
-
 end
